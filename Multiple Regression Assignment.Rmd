@@ -46,10 +46,10 @@ Multiple regression is predicting a continuous outcome variable (dependent varia
 
 The rio package works for importing several different types of data files. We're going to use it in this class. There are other packages which can be used to open datasets in R. You can see several options by clicking on the Import Dataset menu under the Environment tab in RStudio. (For a csv file like we have this week we'd use either From Text(base) or From Text (readr). Try it out to see the menu dialog.)
 
-```{r}
+```{r eval=FALSE}
 # Using the file.choose() command allows you to select a file to import from another folder.
-# dataset <- rio::import(file.choose())
-dataset <- rio::import("Album Sales.sav")
+dataset <- rio::import(file.choose())
+# dataset <- rio::import("Album Sales.sav")
 ```
 
 ## Get R code from Jamovi output
@@ -67,13 +67,13 @@ Many linear models are calculated in R using the lm() function. We'll look at ho
 
 #### Visualization
 
-```{r}
+```{r eval=FALSE}
 # This code creates a scatter matrix
 library(GGally)
 GGally::ggpairs(dataset, columns=c('Sales','Adverts','Airplay','Image'), lower = list(continuous = "smooth"))
 ```
 
-```{r}
+```{r eval=FALSE}
 # This code creates a scatterplot between a single pair of variables
 ggplot(dataset, aes(x = Adverts, y = Sales)) +
   geom_point() +
@@ -82,14 +82,14 @@ ggplot(dataset, aes(x = Adverts, y = Sales)) +
 
 #### Computation
 
-```{r}
+```{r eval=FALSE}
 model <- lm(formula = Sales ~ Adverts + Airplay + Image, data = dataset)
 model
 ```
 
 #### Model assessment
 
-```{r}
+```{r eval=FALSE}
 summary(model)
 ```
 
@@ -97,7 +97,7 @@ summary(model)
 
 You might notice lm() does not provide the standardized residuals. Those must me calculated separately.
 
-```{r}
+```{r eval=FALSE}
 standardized = lm(scale(Sales) ~ scale(Adverts) + scale(Airplay) + scale(Image), data=dataset)
 summary(standardized)
 ```
@@ -107,7 +107,7 @@ summary(standardized)
 
 Compare the output from the lm() function with the output from the function in the jmv package.
 
-```{r}
+```{r eval=FALSE}
 jmv::linReg(
   data = dataset,
   dep = Sales,
